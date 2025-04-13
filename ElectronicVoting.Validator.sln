@@ -1,0 +1,51 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35527.113 d17.12
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{674DAD14-C4FB-4CAA-9F5F-B531FDC6C39A}"
+	ProjectSection(SolutionItems) = preProject
+		compose.yaml = compose.yaml
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ElectronicVoting.Validator.Application", "ElectronicVoting.Validator.Application\ElectronicVoting.Validator.Application.csproj", "{DD2C9783-AEFA-4462-8DA0-F608339351CC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ElectronicVoting.Validator.Domain", "ElectronicVoting.Validator.Domain\ElectronicVoting.Validator.Domain.csproj", "{4809E516-3426-4C48-8CAE-81021081EA8A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ElectronicVoting.Validator.Infrastructure", "ElectronicVoting.Validator.Infrastructure\ElectronicVoting.Validator.Infrastructure.csproj", "{A86136B3-68A5-4287-821B-7230E12B15F0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ElectronicVoting.Validator.API", "ElectronicVoting.Validator.API\ElectronicVoting.Validator.API.csproj", "{30DC447A-9451-4551-B56D-E5615F1A3CB3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ElectronicVoting.Validator.Test", "ElectronicVoting.Validator.Test\ElectronicVoting.Validator.Test.csproj", "{564FB534-CF61-4663-BC74-E4B794A3EAB6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DD2C9783-AEFA-4462-8DA0-F608339351CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DD2C9783-AEFA-4462-8DA0-F608339351CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DD2C9783-AEFA-4462-8DA0-F608339351CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DD2C9783-AEFA-4462-8DA0-F608339351CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4809E516-3426-4C48-8CAE-81021081EA8A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4809E516-3426-4C48-8CAE-81021081EA8A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4809E516-3426-4C48-8CAE-81021081EA8A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4809E516-3426-4C48-8CAE-81021081EA8A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A86136B3-68A5-4287-821B-7230E12B15F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A86136B3-68A5-4287-821B-7230E12B15F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A86136B3-68A5-4287-821B-7230E12B15F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A86136B3-68A5-4287-821B-7230E12B15F0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{30DC447A-9451-4551-B56D-E5615F1A3CB3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{30DC447A-9451-4551-B56D-E5615F1A3CB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{30DC447A-9451-4551-B56D-E5615F1A3CB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{30DC447A-9451-4551-B56D-E5615F1A3CB3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{564FB534-CF61-4663-BC74-E4B794A3EAB6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{564FB534-CF61-4663-BC74-E4B794A3EAB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{564FB534-CF61-4663-BC74-E4B794A3EAB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{564FB534-CF61-4663-BC74-E4B794A3EAB6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

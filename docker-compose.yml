@@ -1,0 +1,37 @@
+services:
+  electronicvoting.validator.api:
+    image: electronicvoting.validator.api.1
+    build:
+      context: .
+      dockerfile: ElectronicVoting.Validator.API/Dockerfile
+    ports:
+      - "5001:80"
+      - "5002:443"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - CONTAINER_NAME=electronicvote.validator.api.1
+      - REDIS_URL=electronicvoting.validator.redis.1:6379
+      - DATABASE_CONNECTION_STRING=Server=electronicvoting.validator.database.1;User Id=sa;Password=LitwoOjczyznoMoja1234@;TrustServerCertificate=true
+    depends_on:
+      - electronicvoting.validator.redis.1
+  electronicvoting.validator.database.1:
+    ports:
+      - "5003:1433"
+    image: mcr.microsoft.com/mssql/server:2017-latest
+    container_name: electronicvoting.validator.database.1
+    environment:
+      SA_PASSWORD: "LitwoOjczyznoMoja1234@"
+      ACCEPT_EULA: "Y"
+  electronicvoting.validator.redis.1:
+    image: redis:latest
+    command: redis-server
+    container_name: electronicvoting.validator.redis.1
+    volumes:
+      - electronicvoting.validator.redis.1:/var/lib/redis
+      - electronicvoting.validator.redis.1-config:/usr/local/etc/redis/redis.conf
+    ports:
+      - "5004:6379"
+volumes:
+  electronicvoting.validator.redis.1:
+  electronicvoting.validator.redis.1-config:
