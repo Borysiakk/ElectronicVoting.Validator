@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net9.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>disable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <Folder Include="Handlers\Queries\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\ElectronicVoting.Validator.Domain\ElectronicVoting.Validator.Domain.csproj" />
+      <ProjectReference Include="..\ElectronicVoting.Validator.Infrastructure\ElectronicVoting.Validator.Infrastructure.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="FluentResults" Version="4.0.0" />
+      <PackageReference Include="FluentResults.Extensions.AspNetCore" Version="0.2.0" />
+      <PackageReference Include="PemUtils" Version="3.0.0.82" />
+      <PackageReference Include="Refit" Version="8.0.0" />
+      <PackageReference Include="WolverineFx" Version="4.5.3" />
+      <PackageReference Include="WolverineFx.Http" Version="4.5.3" />
+    </ItemGroup>
+
+</Project>

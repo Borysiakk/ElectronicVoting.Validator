@@ -1,0 +1,41 @@
+version: "3.9"
+
+services:
+  api:
+    image: electronicvoting.validator
+    build:
+      context: .
+      dockerfile: ElectronicVoting.Validator/Dockerfile
+    container_name: ${NODE_NAME}-api
+    environment:
+      - ConnectionStrings__ValidatorDb=Host=${NODE_NAME}-db;Port=5432;Database=validator-db;Username=user;Password=pass
+      - ConnectionStrings__ElectionDb=Host=election-db;Port=5432;Database=election;Username=user;Password=pass
+    depends_on:
+      - db
+    networks:
+      - voting-net
+
+  db:
+    image: postgres:16
+    container_name: ${NODE_NAME}-db
+    environment:
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=pass
+      - POSTGRES_DB=validator-db
+    networks:
+      - voting-net
+
+  rabbitmq_a:
+    image: rabbitmq:3-management
+    container_name: ${NODE_NAME}-rabbitmq
+    environment:
+      - RABBITMQ_DEFAULT_USER=user
+      - RABBITMQ_DEFAULT_PASS=pass
+    ports:
+      - "${RABBIT_WEB_PORT:-15672}:15672"
+    networks:
+      - voting-net
+
+networks:
+  voting-net:
+    external: true
