@@ -1,14 +1,10 @@
-using ElectronicVoting.Validator.Domain.Entities.ValidatorLedger;
-using ElectronicVoting.Validator.Domain.Models.BlockValidation;
-
+using ElectronicVoting.Validator.Domain.Commands;
 namespace ElectronicVoting.Validator.Application.Handlers.Commands.BlockValidation;
-
-public class StartLocalBlockValidationCommand
-{
-    public PendingBlock PendingBlock { get; set; }
-}
 
 public class StartLocalBlockValidationHandler
 {
-    
+    public async Task HandleAsync(StartLocalBlockValidationCommand command, CancellationToken ct)
+    {
+        Console.WriteLine("Start Local Block Validation");
+    }
 }
