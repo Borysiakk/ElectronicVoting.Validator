@@ -5,66 +5,36 @@ services:
       context: "/Users/borysiak/RiderProjects/ElectronicVoting.Validator"
       dockerfile: "ElectronicVoting.Validator/Dockerfile"
       target: "base"
-      args:
-        BUILD_CONFIGURATION: "Debug"
     command: []
     entrypoint:
-    - "/opt/JetBrains/RiderDebuggerTools/linux-arm64/JetBrains.Debugger.Worker"
-    - "--runtimeconfig"
-    - "/opt/JetBrains/RiderDebuggerTools/JetBrains.Debugger.Worker.runtimeconfig.json"
-    - "--mode=server"
-    - "--frontend-port=57000"
-    - "--backend-port=57200"
-    - "--roslyn-worker-port=57404"
-    - "--timeout=60"
+    - "dotnet"
+    - "/app/bin/Debug/net9.0/ElectronicVoting.Validator.dll"
     environment:
       ASPNETCORE_ENVIRONMENT: "Development"
       DOTNET_USE_POLLING_FILE_WATCHER: "true"
-      RIDER_DEBUGGER_LOG_DIR: "/var/opt/JetBrains/RiderDebuggerTools"
-      RESHARPER_LOG_CONF: "/etc/opt/JetBrains/RiderDebuggerTools/backend-log.xml"
     image: "electronicvoting.validator:dev"
-    ports:
-    - "127.0.0.1:57004:57000"
-    - "127.0.0.1:57204:57200"
-    - "127.0.0.1:57404:57404"
+    ports: []
     volumes:
     - "/Users/borysiak/RiderProjects/ElectronicVoting.Validator/ElectronicVoting.Validator:/app:rw"
     - "/Users/borysiak/RiderProjects/ElectronicVoting.Validator:/src:rw"
     - "/Users/borysiak/.nuget/packages:/home/app/.nuget/packages"
-    - "/Users/borysiak/.local/share/JetBrains/RiderRemoteDebugger/2025.1.5/LinuxArm64:/opt/JetBrains/RiderDebuggerTools"
-    - "/Users/borysiak/Library/Logs/JetBrains/Rider2025.1/DebuggerWorker/JetBrains.Debugger.Worker.2025_8_11_20_32_50:/var/opt/JetBrains/RiderDebuggerTools:rw"
     working_dir: "/app"
   electronicvoting.validator_b:
     build:
       context: "/Users/borysiak/RiderProjects/ElectronicVoting.Validator"
       dockerfile: "ElectronicVoting.Validator/Dockerfile"
       target: "base"
-      args:
-        BUILD_CONFIGURATION: "Debug"
     command: []
     entrypoint:
-    - "/opt/JetBrains/RiderDebuggerTools/linux-arm64/JetBrains.Debugger.Worker"
-    - "--runtimeconfig"
-    - "/opt/JetBrains/RiderDebuggerTools/JetBrains.Debugger.Worker.runtimeconfig.json"
-    - "--mode=server"
-    - "--frontend-port=57000"
-    - "--backend-port=57200"
-    - "--roslyn-worker-port=57405"
-    - "--timeout=60"
+    - "dotnet"
+    - "/app/bin/Debug/net9.0/ElectronicVoting.Validator.dll"
     environment:
       ASPNETCORE_ENVIRONMENT: "Development"
       DOTNET_USE_POLLING_FILE_WATCHER: "true"
-      RIDER_DEBUGGER_LOG_DIR: "/var/opt/JetBrains/RiderDebuggerTools"
-      RESHARPER_LOG_CONF: "/etc/opt/JetBrains/RiderDebuggerTools/backend-log.xml"
     image: "electronicvoting.validator:dev"
-    ports:
-    - "127.0.0.1:57005:57000"
-    - "127.0.0.1:57205:57200"
-    - "127.0.0.1:57405:57405"
+    ports: []
     volumes:
     - "/Users/borysiak/RiderProjects/ElectronicVoting.Validator/ElectronicVoting.Validator:/app:rw"
     - "/Users/borysiak/RiderProjects/ElectronicVoting.Validator:/src:rw"
     - "/Users/borysiak/.nuget/packages:/home/app/.nuget/packages"
-    - "/Users/borysiak/.local/share/JetBrains/RiderRemoteDebugger/2025.1.5/LinuxArm64:/opt/JetBrains/RiderDebuggerTools"
-    - "/Users/borysiak/Library/Logs/JetBrains/Rider2025.1/DebuggerWorker/JetBrains.Debugger.Worker.2025_8_11_20_32_50:/var/opt/JetBrains/RiderDebuggerTools:rw"
     working_dir: "/app"

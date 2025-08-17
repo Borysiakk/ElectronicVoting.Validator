@@ -1,21 +1,17 @@
-using ElectronicVoting.Validator.Domain.Commands;
-using ElectronicVoting.Validator.Domain.Models.BlockValidation;
+using ElectronicVoting.Validator.Application.DTO.BlockValidation;
+using ElectronicVoting.Validator.Application.Handlers.Commands.BlockValidation;
+using ElectronicVoting.Validator.Domain.Interface.Processes;
 using ElectronicVoting.Validator.Infrastructure.EntityFramework;
 using ElectronicVoting.Validator.Infrastructure.EntityFramework.ValidatorLedger.Repositories;
 using ElectronicVoting.Validator.Infrastructure.Factories;
 using Wolverine;
 
-namespace ElectronicVoting.Validator.Infrastructure.Services;
-
-public interface IPbftBlockCreatorProcess
-{
-    Task ProcessAsync(CancellationToken ct);
-}
+namespace ElectronicVoting.Validator.Application.Processes;
 
 public class PbftBlockCreatorProcess(
+    IUnitOfWork unitOfWork,
     IMessageBus messageBus,
     IPendingBlockFactory pendingBlockFactory,
-    IUnitOfWork unitOfWork,
     IPendingBlockRepository pendingBlockRepository)
     : IPbftBlockCreatorProcess
 {
@@ -28,14 +24,18 @@ public class PbftBlockCreatorProcess(
         
         await pendingBlockRepository.AddAsync(pendingBlockResult.Value, ct);
         await unitOfWork.Commit(ct);
-
+        
         LeaderInitiateBlockValidationCommand leaderInitiateBlockValidationCommand = new()
         {
-            PendingBlock = new PendingBlock()
+            PendingBlock = new PendingBlockDto()
             {
                 Id = pendingBlockResult.Value.Id,
-                PbftSequenceNumberId = pendingBlockResult.Value.PbftSequenceNumberId,
-                PendingTransactions = pendingBlockResult.Value.PendingTransactions.Select(pt => new PendingTransaction()
+                PbftSequence = new PbftSequenceDto()
+                {
+                    Id = pendingBlockResult.Value.PbftSequence.Id,
+                    SequenceNumber = pendingBlockResult.Value.PbftSequence.SequenceNumber,
+                },
+                PendingTransactions = pendingBlockResult.Value.PendingTransactions.Select(pt => new PendingTransactionDto()
                 {
                     VoteEncryptionId = pt.VoteEncryptionId,
                     VoteValidationProcessId = pt.VoteValidationProcessId,

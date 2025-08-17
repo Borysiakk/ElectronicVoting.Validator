@@ -1,4 +1,4 @@
-using ElectronicVoting.Validator.Infrastructure.Services;
+using ElectronicVoting.Validator.Domain.Interface.Processes;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;

@@ -35,28 +35,19 @@
 	<s:String x:Key="/Default/Environment/AssemblyExplorer/XmlDocument/@EntryValue">&lt;AssemblyExplorer&gt;
   &lt;Assembly Path="/Users/borysiak/.nuget/packages/wolverinefx/4.5.3/lib/net9.0/Wolverine.dll" /&gt;
 &lt;/AssemblyExplorer&gt;</s:String>
-	
-	
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=159a05fd_002D1197_002D4ce2_002Dac77_002D115551e07cc4/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="VerifySignature_WithCertificateSignedByTrustedCa_ReturnsTrue #4" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
-  &lt;TestAncestor&gt;
-    &lt;TestId&gt;xUnit::6E72D092-43F3-4CAB-8DAA-8C3E9A32A2A3::net9.0::ElectronicVoting.Validator.Test.UnitTests.Sign.SignatureServiceTests.VerifySignature_WithCertificateSignedByTrustedCa_ReturnsTrue&lt;/TestId&gt;
-  &lt;/TestAncestor&gt;
-&lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=b80fd017_002D96a1_002D4ae6_002Db4a0_002D62e494bee643/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="Test1" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=2f8bd7ab_002D049f_002D49d8_002Db3a5_002D5cfc68c83a11/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="Test1" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
   &lt;TestAncestor&gt;
     &lt;TestId&gt;xUnit::6E72D092-43F3-4CAB-8DAA-8C3E9A32A2A3::net9.0::ElectronicVoting.Validator.Test.IntegrationTests.VoteValidatedTest.Test1&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=e81b4afe_002Dca74_002D43de_002D9fcb_002Dc0e50484c8d4/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="Test1 #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
-  &lt;TestAncestor&gt;
-    &lt;TestId&gt;xUnit::6E72D092-43F3-4CAB-8DAA-8C3E9A32A2A3::net9.0::ElectronicVoting.Validator.Test.IntegrationTests.VoteValidatedTest.Test1&lt;/TestId&gt;
-  &lt;/TestAncestor&gt;
-&lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=ed7f6fd5_002D6481_002D4c79_002Db99c_002D5d67a09cb580/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="VerifySignature_WithCertificateSignedByTrustedCa_ReturnsTrue" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
-  &lt;TestAncestor&gt;
-    &lt;TestId&gt;xUnit::6E72D092-43F3-4CAB-8DAA-8C3E9A32A2A3::net9.0::ElectronicVoting.Validator.Test.UnitTests.Sign.SignatureServiceTests.VerifySignature_WithCertificateSignedByTrustedCa_ReturnsTrue&lt;/TestId&gt;
-  &lt;/TestAncestor&gt;
-&lt;/SessionState&gt;</s:String>
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

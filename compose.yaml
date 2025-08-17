@@ -5,8 +5,8 @@
       context: .
       dockerfile: ElectronicVoting.Validator/Dockerfile
     ports:
-      - "8080:8080"   # ✅ Mapuj port 8080 (zgodnie z Dockerfile)
-      - "8081:8081"   # ✅ Mapuj port 8081 (zgodnie z Dockerfile)
+      - "8080:8080"
+      - "8081:8081"
     environment:
       - RabbitMQ__Host=rabbitmq_a
       - RabbitMQ__Port=5672
@@ -99,7 +99,24 @@
     restart: unless-stopped
     networks:
       - voting-net
-    
+      
+  minio:
+    image: minio/minio:latest
+    container_name: minio
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    environment:
+      MINIO_ROOT_USER: "MINIO_ACCESS_KEY"       
+      MINIO_ROOT_PASSWORD: "MINIO_SECRET_KEY"   
+    command: server /data --console-address ":9001"
+    restart: unless-stopped
+    networks:
+      - voting-net
+
 networks:
   voting-net:
     external: true
+    
+volumes:
+  minio_data:

@@ -1,13 +1,9 @@
 using ElectronicVoting.Validator.Domain.Enums;
+using ElectronicVoting.Validator.Domain.Interface.Processes;
 using ElectronicVoting.Validator.Infrastructure.EntityFramework;
 using ElectronicVoting.Validator.Infrastructure.EntityFramework.ValidatorLedger.Repositories;
 
-namespace ElectronicVoting.Validator.Infrastructure.Services;
-
-public interface IVoteValidationTimeoutProcessor
-{
-    Task ProcessAsync(CancellationToken ct);
-}
+namespace ElectronicVoting.Validator.Application.Processes;
 
 public class VoteValidationTimeoutProcessor(
     IUnitOfWork unitOfWork,

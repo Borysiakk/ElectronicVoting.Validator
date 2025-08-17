@@ -19,6 +19,7 @@ public static class Extensions
         service.AddScoped<IElectionValidatorService, ElectionValidatorService>();
         service.AddScoped<IValidationVoteApiService, ValidationVoteApiService>();
         service.AddScoped<IBlockValidationApiService, BlockValidationApiService>();
+        service.AddScoped<IPendingBlockStorageService, PendingBlockStorageService>();
         return service;
     }
 
