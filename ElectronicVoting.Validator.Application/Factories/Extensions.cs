@@ -1,6 +1,7 @@
 using Microsoft.Extensions.DependencyInjection;
 
-namespace ElectronicVoting.Validator.Infrastructure.Factories;
+namespace ElectronicVoting.Validator.Application.Factories;
+
 
 public static class Extensions
 {

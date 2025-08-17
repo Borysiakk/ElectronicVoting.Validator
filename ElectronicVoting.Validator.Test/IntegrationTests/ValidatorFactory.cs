@@ -4,7 +4,9 @@ using DotNet.Testcontainers.Images;
 using DotNet.Testcontainers.Networks;
 using ElectronicVoting.Validator.Domain.Entities.Election;
 using ElectronicVoting.Validator.Infrastructure.EntityFramework.Election;
+using ElectronicVoting.Validator.Infrastructure.Minio;
 using ElectronicVoting.Validator.Test.CertificateTools;
+using Testcontainers.Minio;
 using Testcontainers.PostgreSql;
 using Xunit;
 
@@ -25,6 +27,7 @@ public class ValidatorFactory :IAsyncLifetime
     
     private readonly INetwork _network;
     private readonly IFutureDockerImage _image;
+    private readonly MinioContainer _minioContainer;
     private readonly PostgreSqlContainer _electionDatabase;
     private readonly List<ValidatorInstance> _instanceValidators = new();
     
@@ -49,6 +52,14 @@ public class ValidatorFactory :IAsyncLifetime
             .WithPassword("pass")
             .WithNetwork(_network)
             .WithNetworkAliases("election-db")
+            .Build();
+        
+        _minioContainer = new MinioBuilder()
+            .WithImage("minio/minio:latest")
+            .WithNetwork(_network)
+            .WithNetworkAliases("minio")
+            .WithEnvironment("MINIO_ROOT_USER","MINIO_ACCESS_KEY")
+            .WithEnvironment("MINIO_ROOT_PASSWORD", "MINIO_SECRET_KEY")
             .Build();
     }
 
@@ -77,6 +88,7 @@ public class ValidatorFactory :IAsyncLifetime
         await _image.CreateAsync(CancellationToken.None);
         await _network.CreateAsync(CancellationToken.None);
         await _electionDatabase.StartAsync(CancellationToken.None);
+        await _minioContainer.StartAsync(CancellationToken.None);
         
         _electionDbContext = DbContextFactory.Create<ElectionDbContext>(_electionDatabase.GetConnectionString());
         await _electionDbContext.Database.EnsureCreatedAsync();

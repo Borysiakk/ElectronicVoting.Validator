@@ -1,4 +1,4 @@
-using ElectronicVoting.Validator.Domain.Commands;
+using ElectronicVoting.Validator.Application.Handlers.Commands.BlockValidation;
 using Wolverine;
 using Wolverine.Http;
 

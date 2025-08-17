@@ -8,19 +8,19 @@ namespace ElectronicVoting.Validator.Application.Services;
 
 public interface IPendingBlockStorageService
 {
-    Task<Result> StorePendingBlockAsync(PendingBlockDto block, CancellationToken cancellationToken);
-    Task<Result<PendingBlockDto>> GetPendingBlockAsync(string blockId, CancellationToken cancellationToken);
+    Task<Result> StoreGetPendingBlockDetailsAsync(PendingBlockDetailsDto block, CancellationToken cancellationToken);
+    Task<Result<PendingBlockDetailsDto>> GetPendingBlockDetailsAsync(Guid blockId, CancellationToken cancellationToken);
 }
 
 public class PendingBlockStorageService(IMinioStorageService minioStorageService) : IPendingBlockStorageService
 {
     private const string BucketName = "pending-blocks";
     
-    public async Task<Result> StorePendingBlockAsync(PendingBlockDto block, CancellationToken cancellationToken)
+    public async Task<Result> StoreGetPendingBlockDetailsAsync(PendingBlockDetailsDto pendingBlockDetails, CancellationToken cancellationToken)
     {
         try
         {
-            var json = JsonSerializer.Serialize(block, new JsonSerializerOptions 
+            var json = JsonSerializer.Serialize(pendingBlockDetails, new JsonSerializerOptions 
             { 
                 PropertyNamingPolicy = JsonNamingPolicy.CamelCase 
             });
@@ -28,7 +28,7 @@ public class PendingBlockStorageService(IMinioStorageService minioStorageService
             var jsonBytes = Encoding.UTF8.GetBytes(json);
             using var stream = new MemoryStream(jsonBytes);
             
-            var key = $"pending-block-{block.Id}.json";
+            var key = $"pending-block-{pendingBlockDetails.Id}.json";
             await minioStorageService.UploadAsync(BucketName, key, stream, cancellationToken);
             
             return Result.Ok();
@@ -37,10 +37,9 @@ public class PendingBlockStorageService(IMinioStorageService minioStorageService
         {
             return Result.Fail($"Failed to store pending block: {ex.Message}");
         }
-
     }
 
-    public async Task<Result<PendingBlockDto>> GetPendingBlockAsync(string blockId, CancellationToken cancellationToken)
+    public async Task<Result<PendingBlockDetailsDto>> GetPendingBlockDetailsAsync(Guid blockId, CancellationToken cancellationToken)
     {
         try
         {
@@ -48,21 +47,21 @@ public class PendingBlockStorageService(IMinioStorageService minioStorageService
             var stream = await minioStorageService.DownloadAsync(BucketName, key, cancellationToken);
             
             if (stream == null)
-                return Result.Ok<PendingBlockDto?>(null);
+                return Result.Ok<PendingBlockDetailsDto>(null);
             
             using var reader = new StreamReader(stream);
             var json = await reader.ReadToEndAsync(cancellationToken);
             
-            var block = JsonSerializer.Deserialize<PendingBlockDto>(json, new JsonSerializerOptions 
+            var block = JsonSerializer.Deserialize<PendingBlockDetailsDto>(json, new JsonSerializerOptions 
             { 
                 PropertyNamingPolicy = JsonNamingPolicy.CamelCase 
             });
             
-            return Result.Ok<PendingBlockDto>(block);
+            return Result.Ok<PendingBlockDetailsDto>(block);
         }
         catch (Exception ex)
         {
-            return Result.Fail<PendingBlockDto>($"Failed to get pending block: {ex.Message}");
+            return Result.Fail<PendingBlockDetailsDto>($"Failed to get pending block: {ex.Message}");
         }
 
     }

@@ -1,4 +1,4 @@
-using ElectronicVoting.Validator.Domain.Commands;
+using ElectronicVoting.Validator.Application.Handlers.Commands.BlockValidation;
 using Refit;
 
 namespace ElectronicVoting.Validator.Application.RestApi;

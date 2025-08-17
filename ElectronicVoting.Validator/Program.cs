@@ -1,10 +1,10 @@
+using ElectronicVoting.Validator.Application.Factories;
 using ElectronicVoting.Validator.Application.Handlers.Commands.VoteValidation;
 using ElectronicVoting.Validator.Application.Processes;
 using ElectronicVoting.Validator.Application.Services;
 using ElectronicVoting.Validator.Infrastructure.EntityFramework;
 using ElectronicVoting.Validator.Infrastructure.EntityFramework.Election;
 using ElectronicVoting.Validator.Infrastructure.EntityFramework.ValidatorLedger;
-using ElectronicVoting.Validator.Infrastructure.Factories;
 using ElectronicVoting.Validator.Infrastructure.HostedServices;
 using ElectronicVoting.Validator.Infrastructure.Minio;
 using ElectronicVoting.Validator.Infrastructure.Rafit;

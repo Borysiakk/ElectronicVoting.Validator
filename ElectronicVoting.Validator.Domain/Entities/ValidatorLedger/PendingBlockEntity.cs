@@ -13,7 +13,6 @@ public class PendingBlockEntity: Entity<Guid>, IHashable
     
     public long PbftSequenceNumberId { get; set; }
     public virtual PbftSequenceEntity PbftSequence { get; set; }
-    
     public virtual ICollection<PendingTransactionEntity> PendingTransactions { get; set; }
     
     public object GetHashSource()

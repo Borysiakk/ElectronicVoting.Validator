@@ -1,5 +1,5 @@
+using ElectronicVoting.Validator.Application.Handlers.Commands.BlockValidation;
 using ElectronicVoting.Validator.Application.RestApi;
-using ElectronicVoting.Validator.Domain.Commands;
 using ElectronicVoting.Validator.Infrastructure.EntityFramework.Election.Repositories;
 using ElectronicVoting.Validator.Infrastructure.Rafit;
 
