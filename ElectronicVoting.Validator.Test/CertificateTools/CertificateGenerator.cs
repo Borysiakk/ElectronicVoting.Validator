@@ -66,8 +66,7 @@ public class CertificateGenerator
         var pkcs8 = rsa.ExportPkcs8PrivateKey();
         var prvB64 = Convert.ToBase64String(pkcs8, Base64FormattingOptions.InsertLineBreaks);
         string privatePem = $"-----BEGIN PRIVATE KEY-----\n{prvB64}\n-----END PRIVATE KEY-----\n";
-
-
+        
         return new CertificateKey()
         {
             PrivateKey = privatePem,

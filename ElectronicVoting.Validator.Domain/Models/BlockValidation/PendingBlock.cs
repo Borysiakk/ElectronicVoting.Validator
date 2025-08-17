@@ -7,5 +7,5 @@ public class PendingBlock
     public string PreviousHash { get; set; }
     
     public long PbftSequenceNumberId { get; set; }
-    
+    public List<PendingTransaction> PendingTransactions { get; set; }
 }

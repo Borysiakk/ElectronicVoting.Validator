@@ -1,26 +1,29 @@
+using ElectronicVoting.Validator.Application.Factories;
 using ElectronicVoting.Validator.Application.Handlers.Commands.VoteValidation;
+using ElectronicVoting.Validator.Application.Processes;
 using ElectronicVoting.Validator.Application.Services;
 using ElectronicVoting.Validator.Infrastructure.EntityFramework;
 using ElectronicVoting.Validator.Infrastructure.EntityFramework.Election;
 using ElectronicVoting.Validator.Infrastructure.EntityFramework.ValidatorLedger;
 using ElectronicVoting.Validator.Infrastructure.HostedServices;
+using ElectronicVoting.Validator.Infrastructure.Minio;
 using ElectronicVoting.Validator.Infrastructure.Rafit;
-using ElectronicVoting.Validator.Infrastructure.Services;
 using ElectronicVoting.Validator.Infrastructure.Wolverine;
 using Wolverine.Http;
-using Wolverine.Runtime;
 
 Console.WriteLine("Hello, World!");
 var builder = WebApplication.CreateBuilder(args);
 var applicationAssembly = typeof(LeaderInitiateVoteValidationHandler).Assembly;
 
-builder.Services.AddInfrastructureServices();
+builder.Services.AddFactories();
+builder.Services.AddApplicationProcesses();
 builder.Services.AddHostedServices();
 builder.Services.AddSwaggerGen();
 builder.Services.AddRafit();
 builder.Services.AddWolverine(builder.Configuration, applicationAssembly);
 builder.Services.AddEntityFramework(builder.Configuration);
 builder.Services.AddApplicationServices(builder.Configuration);
+builder.Services.AddMinioS3(builder.Configuration);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 
@@ -36,7 +39,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI(c =>
     {
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "ElectronicVoting.Validator API V1");
-        c.RoutePrefix = "swagger"; // Ustawia URL na /swagger zamiast /swagger/index.html
+        c.RoutePrefix = "swagger";
     });
 
     app.MapOpenApi();
@@ -47,7 +50,6 @@ if (app.Environment.IsDevelopment())
     
     using var dbContextValidatorLedger = scope.ServiceProvider.GetRequiredService<ValidatorLedgerDbContext>();
     dbContextValidatorLedger.Database.EnsureCreated();
-    
 }
 
 app.UseHttpsRedirection();

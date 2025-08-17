@@ -44,7 +44,6 @@ public class StartLocalVoteValidationHandler(
         {
             await CreateVoteEncryption(command, ct);
             var resultCreateVoteValidationProcess = await CreateVoteValidationProcess(command, ct);
-            //utworzyc glos
             if (!resultCreateVoteValidationProcess)
                 return;
         }

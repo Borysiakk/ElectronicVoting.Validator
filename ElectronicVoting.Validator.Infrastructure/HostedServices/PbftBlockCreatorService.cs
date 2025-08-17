@@ -1,4 +1,4 @@
-using ElectronicVoting.Validator.Infrastructure.Services;
+using ElectronicVoting.Validator.Domain.Interface.Processes;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -16,7 +16,7 @@ public class  PbftBlockCreatorService(ILogger<PbftBlockCreatorService> logger, I
             var  pbftBlockCreatorProcess = scope.ServiceProvider.GetRequiredService<IPbftBlockCreatorProcess>();
             await pbftBlockCreatorProcess.ProcessAsync(stoppingToken);
         
-            await Task.Delay(TimeSpan.FromMinutes(1), stoppingToken);
+            await Task.Delay(TimeSpan.FromSeconds(15), stoppingToken);
         }
     }
 }

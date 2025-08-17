@@ -16,5 +16,11 @@ public class VoteValidationProcessConfiguration: IEntityTypeConfiguration<VoteVa
         
         builder.Property(a => a.Status).HasConversion<string>().HasMaxLength(32).IsRequired();
         builder.HasIndex(a => a.Status);
+        
+        builder.HasOne(vvp => vvp.VoteEncryption)
+               .WithOne()
+               .HasForeignKey<VoteValidationProcessEntity>(vvp => vvp.VoteEncryptionId)
+               .OnDelete(DeleteBehavior.Restrict);
+
     }
 }

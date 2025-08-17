@@ -1,4 +1,3 @@
-using ElectronicVoting.Validator.Infrastructure.EntityFramework.Election;
 using ElectronicVoting.Validator.Infrastructure.EntityFramework.ValidatorLedger;
 using ElectronicVoting.Validator.Infrastructure.EntityFramework.ValidatorLedger.Repositories;
 

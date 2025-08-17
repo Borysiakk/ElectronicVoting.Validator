@@ -15,6 +15,7 @@
 	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=7020124F_002D9FFC_002D4AC3_002D8F3D_002DAAB8E0240759_002Ff_003AIPolicies_002Ecs_002Fl_003A_002E_002E_003F_002E_002E_003FLibrary_003FApplication_0020Support_003FJetBrains_003FRider2025_002E1_003Fresharper_002Dhost_003FSourcesCache_003Facaa4d7eff6ddfa9722c6be4964dac0e9b49882a776ec802e37a2b94c8c4fdd_003FIPolicies_002Ecs/@EntryIndexedValue">ForceIncluded</s:String>
 	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=7020124F_002D9FFC_002D4AC3_002D8F3D_002DAAB8E0240759_002Ff_003AIReadOnlyList_00601_002Ecs_002Fl_003A_002E_002E_003F_002E_002E_003FLibrary_003FApplication_0020Support_003FJetBrains_003FRider2025_002E1_003Fresharper_002Dhost_003FDecompilerCache_003Fdecompiler_003F1b4d58039305476fac8d2a391a3edde5f83200_003F84_003F7138a7e8_003FIReadOnlyList_00601_002Ecs/@EntryIndexedValue">ForceIncluded</s:String>
 	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=7020124F_002D9FFC_002D4AC3_002D8F3D_002DAAB8E0240759_002Ff_003AIValidationRule_002Ecs_002Fl_003A_002E_002E_003F_002E_002E_003FLibrary_003FApplication_0020Support_003FJetBrains_003FRider2025_002E1_003Fresharper_002Dhost_003FSourcesCache_003F77eaf17745f7daa0605a41f0bbbe9b3af8bb1e5e95689ca6ccea3bfa6bdcd_003FIValidationRule_002Ecs/@EntryIndexedValue">ForceIncluded</s:String>
+	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=7020124F_002D9FFC_002D4AC3_002D8F3D_002DAAB8E0240759_002Ff_003AMinioBuilder_002Ecs_002Fl_003A_002E_002E_003F_002E_002E_003FLibrary_003FApplication_0020Support_003FJetBrains_003FRider2025_002E2_003Fresharper_002Dhost_003FSourcesCache_003F5fb078f7d0c9c8bfbf31dd91c11c3ea5b983cdd3a02a3636f2e46b15c2e4b3bf_003FMinioBuilder_002Ecs/@EntryIndexedValue">ForceIncluded</s:String>
 	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=7020124F_002D9FFC_002D4AC3_002D8F3D_002DAAB8E0240759_002Ff_003ANetworkBuilder_002Ecs_002Fl_003A_002E_002E_003F_002E_002E_003FLibrary_003FApplication_0020Support_003FJetBrains_003FRider2025_002E1_003Fresharper_002Dhost_003FSourcesCache_003Fc02ef38b2d9e9f4ba4f96087decf86af17255faa45a64abaa4cdda76cfe7_003FNetworkBuilder_002Ecs/@EntryIndexedValue">ForceIncluded</s:String>
 	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=7020124F_002D9FFC_002D4AC3_002D8F3D_002DAAB8E0240759_002Ff_003ANpgsqlTimeout_002Ecs_002Fl_003A_002E_002E_003F_002E_002E_003FLibrary_003FApplication_0020Support_003FJetBrains_003FRider2025_002E1_003Fresharper_002Dhost_003FDecompilerCache_003Fdecompiler_003F63bcd64b0f014a379d5ce40f4970d19615d000_003F46_003F0e6514d5_003FNpgsqlTimeout_002Ecs/@EntryIndexedValue">ForceIncluded</s:String>
 	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=7020124F_002D9FFC_002D4AC3_002D8F3D_002DAAB8E0240759_002Ff_003APemKeyHelpers_002Ecs_002Fl_003A_002E_002E_003F_002E_002E_003FLibrary_003FApplication_0020Support_003FJetBrains_003FRider2025_002E1_003Fresharper_002Dhost_003FDecompilerCache_003Fdecompiler_003Fd5691b41de5e4840b88bf32b506d98a324c600_003Fe1_003Ff5df1cba_003FPemKeyHelpers_002Ecs/@EntryIndexedValue">ForceIncluded</s:String>
@@ -35,28 +36,32 @@
 	<s:String x:Key="/Default/Environment/AssemblyExplorer/XmlDocument/@EntryValue">&lt;AssemblyExplorer&gt;
   &lt;Assembly Path="/Users/borysiak/.nuget/packages/wolverinefx/4.5.3/lib/net9.0/Wolverine.dll" /&gt;
 &lt;/AssemblyExplorer&gt;</s:String>
-	
-	
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=159a05fd_002D1197_002D4ce2_002Dac77_002D115551e07cc4/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="VerifySignature_WithCertificateSignedByTrustedCa_ReturnsTrue #4" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=2885b6d2_002D2f71_002D4442_002D806d_002D848b72c5f5a6/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="ProcessAsync_WhenVoteValidationProcessIsFinished_ShouldSetStatusToTimeout" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
   &lt;TestAncestor&gt;
-    &lt;TestId&gt;xUnit::6E72D092-43F3-4CAB-8DAA-8C3E9A32A2A3::net9.0::ElectronicVoting.Validator.Test.UnitTests.Sign.SignatureServiceTests.VerifySignature_WithCertificateSignedByTrustedCa_ReturnsTrue&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::6E72D092-43F3-4CAB-8DAA-8C3E9A32A2A3::net9.0::ElectronicVoting.Validator.Test.UnitTests.Processes.VoteValidationTimeoutProcessorTest.ProcessAsync_WhenVoteValidationProcessIsFinished_ShouldSetStatusToTimeout&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=b80fd017_002D96a1_002D4ae6_002Db4a0_002D62e494bee643/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="Test1" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+	
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=e9114eeb_002Ddb4a_002D4f6f_002Db896_002D20241e512722/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="Test1 #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
   &lt;TestAncestor&gt;
     &lt;TestId&gt;xUnit::6E72D092-43F3-4CAB-8DAA-8C3E9A32A2A3::net9.0::ElectronicVoting.Validator.Test.IntegrationTests.VoteValidatedTest.Test1&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=e81b4afe_002Dca74_002D43de_002D9fcb_002Dc0e50484c8d4/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="Test1 #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
-  &lt;TestAncestor&gt;
-    &lt;TestId&gt;xUnit::6E72D092-43F3-4CAB-8DAA-8C3E9A32A2A3::net9.0::ElectronicVoting.Validator.Test.IntegrationTests.VoteValidatedTest.Test1&lt;/TestId&gt;
-  &lt;/TestAncestor&gt;
-&lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=ed7f6fd5_002D6481_002D4c79_002Db99c_002D5d67a09cb580/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="VerifySignature_WithCertificateSignedByTrustedCa_ReturnsTrue" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
-  &lt;TestAncestor&gt;
-    &lt;TestId&gt;xUnit::6E72D092-43F3-4CAB-8DAA-8C3E9A32A2A3::net9.0::ElectronicVoting.Validator.Test.UnitTests.Sign.SignatureServiceTests.VerifySignature_WithCertificateSignedByTrustedCa_ReturnsTrue&lt;/TestId&gt;
-  &lt;/TestAncestor&gt;
-&lt;/SessionState&gt;</s:String>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
