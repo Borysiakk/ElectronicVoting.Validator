@@ -4,7 +4,6 @@ using System.Security.Cryptography.X509Certificates;
 namespace ElectronicVoting.Validator.Test.CertificateTools;
 
 public class CertificateGenerator
-
 {
     private static readonly int KeySize = 2048;
     private static readonly int KeySizeForCA = 2048;
