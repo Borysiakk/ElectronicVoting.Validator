@@ -44,12 +44,12 @@ if (app.Environment.IsDevelopment())
 
     app.MapOpenApi();
     using var scope = app.Services.CreateScope();
-    
-    using var dbContextElection = scope.ServiceProvider.GetRequiredService<ElectionDbContext>();
-    dbContextElection.Database.EnsureCreated();
-    
-    using var dbContextValidatorLedger = scope.ServiceProvider.GetRequiredService<ValidatorLedgerDbContext>();
-    dbContextValidatorLedger.Database.EnsureCreated();
+
+    await using var dbContextElection = scope.ServiceProvider.GetRequiredService<ElectionDbContext>();
+    await dbContextElection.Database.EnsureCreatedAsync();
+
+    await using var dbContextValidatorLedger = scope.ServiceProvider.GetRequiredService<ValidatorLedgerDbContext>();
+    await dbContextValidatorLedger.Database.EnsureCreatedAsync();
 }
 
 app.UseHttpsRedirection();
