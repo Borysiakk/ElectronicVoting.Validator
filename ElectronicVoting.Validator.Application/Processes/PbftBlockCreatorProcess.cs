@@ -1,30 +1,52 @@
+using ElectronicVoting.Validator.Application.DTO.BlockValidation;
 using ElectronicVoting.Validator.Application.Factories;
 using ElectronicVoting.Validator.Application.Handlers.Commands.BlockValidation;
+using ElectronicVoting.Validator.Domain.Entities.ValidatorLedger;
+using ElectronicVoting.Validator.Domain.Enums;
 using ElectronicVoting.Validator.Domain.Interface.Processes;
-using ElectronicVoting.Validator.Infrastructure.EntityFramework;
 using ElectronicVoting.Validator.Infrastructure.EntityFramework.ValidatorLedger.Repositories;
 using Wolverine;
 
 namespace ElectronicVoting.Validator.Application.Processes;
 
 public class PbftBlockCreatorProcess(
-    IUnitOfWork unitOfWork,
     IMessageBus messageBus,
     IPendingBlockFactory pendingBlockFactory,
-    IPendingBlockRepository pendingBlockRepository)
+    IVoteValidationProcessRepository voteValidationProcessRepository)
     : IPbftBlockCreatorProcess
 {
     public async Task ProcessAsync(CancellationToken ct)
     {
-        var pendingBlockDetailsResult = await pendingBlockFactory.TryCreatePendingBlockAsync(ct);
+        var validationProcessWhenReadyToCommit = await GetVoteValidationProcessWhenReadyToCommitAsync(ct);
+        if (!validationProcessWhenReadyToCommit.Any())
+            return;
+        
+        var pendingBlockDetailsResult = await pendingBlockFactory.TryCreatePendingBlockAsync(validationProcessWhenReadyToCommit, ct);
         if (pendingBlockDetailsResult.IsFailed)
             return;
         
-        LeaderInitiateBlockValidationCommand leaderInitiateBlockValidationCommand = new()
+        var command = CreateBlockValidationCommand(pendingBlockDetailsResult.Value);
+        await messageBus.SendAsync(command);
+    }
+    
+    private LeaderInitiateBlockValidationCommand CreateBlockValidationCommand(PendingBlockDetailsDto pendingBlockDetails)
+    {
+        return new LeaderInitiateBlockValidationCommand
         {
-            PendingBlockDetails = pendingBlockDetailsResult.Value,
+            PendingBlockDetails = pendingBlockDetails
         };
+    }
+    
+    private async Task<IReadOnlyList<VoteValidationProcessEntity>> GetVoteValidationProcessWhenReadyToCommitAsync(CancellationToken ct)
+    {
+        var votesValidationProcess = await voteValidationProcessRepository.GetByStatusAsync(VoteValidationProcessStatus.ReadyToCommit, ct);
+
+        foreach (var voteValidationProcess in votesValidationProcess)
+            voteValidationProcess.Status = VoteValidationProcessStatus.ProcessedToCommit;
+         
+        await voteValidationProcessRepository.UpdateAsync(votesValidationProcess.ToArray(), ct);
         
-        await messageBus.SendAsync(leaderInitiateBlockValidationCommand);
+        return votesValidationProcess;
     }
 }
+

@@ -12,7 +12,7 @@ public class VoteValidationTimeoutProcessorTest: ValidatorLedgerDbTestBase
     [Fact]
     public async Task ProcessAsync_WhenVoteValidationProcessIsFinished_ShouldSetStatusToTimeout()
     {
-        var voteEncryption = CreateVoteEncryptionAsync();
+        var voteEncryption = VoteDataFactory.CreateVoteEncryption();
         await RepositoriesFactory.VoteEncryptionRepository.AddAsync(voteEncryption, CancellationToken.None);
         
         VoteValidationProcessEntity voteValidationProcess = new()
@@ -40,7 +40,7 @@ public class VoteValidationTimeoutProcessorTest: ValidatorLedgerDbTestBase
     [Fact]
     public async Task ProcessAsync_WhenVoteValidationProcessIsNotFinished_ShouldKeepOriginalStatus()
     {
-        var voteEncryption = CreateVoteEncryptionAsync();
+        var voteEncryption = VoteDataFactory.CreateVoteEncryption();
         await RepositoriesFactory.VoteEncryptionRepository.AddAsync(voteEncryption, CancellationToken.None);
         
         VoteValidationProcessEntity voteValidationProcess = new()
@@ -63,28 +63,6 @@ public class VoteValidationTimeoutProcessorTest: ValidatorLedgerDbTestBase
         
         var updateVoteValidationProcess = await RepositoriesFactory.VoteValidationProcessRepository.GetByIdAsync(voteValidationProcess.Id, CancellationToken.None);
         Assert.Equal(VoteValidationProcessStatus.Registered ,updateVoteValidationProcess.Status);
-    }
-
-    private VoteEncryptionEntity CreateVoteEncryptionAsync()
-    {
-        return new VoteEncryptionEntity()
-        {
-            Id = Guid.NewGuid(),
-            VoteEncryption = new VoteEncryption()
-            {
-                VoteEncryptionDetails = new VoteEncryptionDetails()
-                {
-                    R = 1,
-                    Vote = "1"
-                },
-                VoteProofOfKnowledgeBase = new VoteProofOfKnowledgeBase()
-                {
-                    E = new[] { "1" },
-                    U = new[] { "1" },
-                    V = new[] { "1" }
-                }
-            }
-        };
     }
 }
 

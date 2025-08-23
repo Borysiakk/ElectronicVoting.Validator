@@ -23,3 +23,5 @@ public class VoteValidationResultRepository(ValidatorLedgerDbContext context)
         return await DbSet.AnyAsync(a=>a.VoteValidationProcessId == voteValidationProcessId && a.ValidatorId == validatorId, cancellationToken);
     }
 }
+
+    

@@ -1,7 +1,9 @@
 using ElectronicVoting.Validator.Application.Factories;
+using ElectronicVoting.Validator.Application.Handlers.Commands.BlockValidation;
 using ElectronicVoting.Validator.Application.Handlers.Commands.VoteValidation;
 using ElectronicVoting.Validator.Application.Processes;
 using ElectronicVoting.Validator.Application.Services;
+using ElectronicVoting.Validator.Infrastructure.Configuration;
 using ElectronicVoting.Validator.Infrastructure.EntityFramework;
 using ElectronicVoting.Validator.Infrastructure.EntityFramework.Election;
 using ElectronicVoting.Validator.Infrastructure.EntityFramework.ValidatorLedger;
@@ -13,7 +15,7 @@ using Wolverine.Http;
 
 Console.WriteLine("Hello, World!");
 var builder = WebApplication.CreateBuilder(args);
-var applicationAssembly = typeof(LeaderInitiateVoteValidationHandler).Assembly;
+var applicationAssembly = typeof(LeaderInitiateBlockValidationHandler).Assembly;
 
 builder.Services.AddFactories();
 builder.Services.AddApplicationProcesses();
@@ -26,7 +28,8 @@ builder.Services.AddApplicationServices(builder.Configuration);
 builder.Services.AddMinioS3(builder.Configuration);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-
+builder.Services.AddConfigurations(builder.Configuration);
+builder.Services.AddHealthChecks();
 builder.Logging.ClearProviders();
 builder.Logging.AddConsole();
 builder.Logging.AddDebug();
@@ -52,9 +55,9 @@ if (app.Environment.IsDevelopment())
     await dbContextValidatorLedger.Database.EnsureCreatedAsync();
 }
 
-app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
+app.MapHealthChecks("/health");
 app.MapWolverineEndpoints(opts =>
 {
     opts.WarmUpRoutes = RouteWarmup.Eager;

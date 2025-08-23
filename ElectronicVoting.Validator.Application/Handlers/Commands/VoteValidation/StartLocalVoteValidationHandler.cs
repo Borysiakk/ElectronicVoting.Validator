@@ -50,7 +50,7 @@ public class StartLocalVoteValidationHandler(
         var localVoteValidatedProcessId = await CreateAndSaveLocalVoteValidatedProcess(command, ct);
         
         var voteValidationResult = await CreateAndSaveVoteValidationResult(command, localVoteValidatedProcessId, ct);
-        var receiveVoteValidationCommand = await CreateAndSingReceiveVoteValidation(voteValidationResult, ct);
+        var receiveVoteValidationCommand = await CreateAndSignReceiveVoteValidation(voteValidationResult, ct);
         await validationVoteApiService.BroadcastReceiveLocalVoteValidationAsync(receiveVoteValidationCommand, ct);
     }
     
@@ -77,7 +77,14 @@ public class StartLocalVoteValidationHandler(
         if (isExistValidationProcess)
             return false;
         
-        VoteValidationProcessEntity voteValidationProcessEntity = new()
+        var voteValidationProcessEntity = CreateVoteValidationProcessEntity(command);
+        await voteValidationProcessRepository.AddAsync(voteValidationProcessEntity, ct);
+        return true;
+    }
+
+    private static VoteValidationProcessEntity CreateVoteValidationProcessEntity(StartLocalVoteValidationCommand command)
+    {
+        return new VoteValidationProcessEntity
         {
             Id = command.VoteValidationProcessId,
             Status = VoteValidationProcessStatus.InProgress,
@@ -85,10 +92,9 @@ public class StartLocalVoteValidationHandler(
             StartedAt = command.StartedAt,
             FinishedAt = command.FinishedAt,
         };
-        await voteValidationProcessRepository.AddAsync(voteValidationProcessEntity, ct);
-        return true;
     }
 
+    
     private async Task<VoteValidationResultDto> CreateAndSaveVoteValidationResult(StartLocalVoteValidationCommand command, Guid  localVoteValidationProcessId, CancellationToken ct)
     {
         var validationStartedAt = DateTime.UtcNow;
@@ -116,7 +122,7 @@ public class StartLocalVoteValidationHandler(
         };
     }
 
-    private async Task<ReceiveLocalVoteValidationCommand> CreateAndSingReceiveVoteValidation(VoteValidationResultDto voteValidationResult, CancellationToken ct)
+    private async Task<ReceiveLocalVoteValidationCommand> CreateAndSignReceiveVoteValidation(VoteValidationResultDto voteValidationResult, CancellationToken ct)
     {
         var currentValidatorId = await electionValidatorService.GetCurrentValidatorIdAsync(ct);
         ReceiveLocalVoteValidationCommand receiveLocalVoteValidationCommand = new()

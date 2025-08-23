@@ -14,10 +14,10 @@ public class ValidatorLedgerDbContext(DbContextOptions<ValidatorLedgerDbContext>
 
     public DbSet<BlockEntity> Blocks { get; set; }
     public DbSet<TransactionEntity> Transactions { get; set; }
-    public DbSet<PendingBlockEntity> PendingBlocks { get; set; }
-    public DbSet<PendingTransactionEntity> PendingTransactions { get; set; }
     public DbSet<PbftSequenceEntity> PbftSequences { get; set; }
-
+    
+    public DbSet<PendingBlockEntity> PendingBlocks { get; set; }
+    public DbSet<BlockValidationResultEntity> BlockValidationResults { get; set; }
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -28,9 +28,9 @@ public class ValidatorLedgerDbContext(DbContextOptions<ValidatorLedgerDbContext>
         modelBuilder.ApplyConfiguration(new VoteValidationResultConfiguration());
         
         modelBuilder.ApplyConfiguration(new PendingBlockConfiguration());
-        modelBuilder.ApplyConfiguration(new PendingTransactionConfiguration());
         modelBuilder.ApplyConfiguration(new BlockConfiguration());
         modelBuilder.ApplyConfiguration(new TransactionConfiguration());
         modelBuilder.ApplyConfiguration(new PbftSequenceConfiguration());
+        modelBuilder.ApplyConfiguration(new BlockValidationResultConfiguration());
     }
 }
