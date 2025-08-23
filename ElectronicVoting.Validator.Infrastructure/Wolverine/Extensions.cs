@@ -26,11 +26,11 @@ public static class Extensions
             
             opts.Policies
                 .ForMessagesOfType<ISignedCommand>()
-                .AddMiddleware(typeof(SignatureValidationMiddleware));
+                .AddMiddleware<SignatureValidationMiddleware>();
             
             opts.Policies
                 .ForMessagesOfType<ITransaction>()
-                .AddMiddleware(typeof(UnitOfWorkMiddleware));
+                .AddMiddleware<UnitOfWorkMiddleware>();
         });
         return service;
     }

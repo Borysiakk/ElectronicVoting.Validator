@@ -17,11 +17,5 @@ public class PbftSequenceConfiguration: IEntityTypeConfiguration<PbftSequenceEnt
             .WithOne(pb => pb.PbftSequence)
             .HasForeignKey<BlockEntity>(pb => pb.PbftSequenceNumberId)
             .OnDelete(DeleteBehavior.Restrict);
-        
-        builder.HasOne(x => x.PendingBlock)
-            .WithOne(pb => pb.PbftSequence)
-            .HasForeignKey<PendingBlockEntity>(pb => pb.PbftSequenceNumberId)
-            .OnDelete(DeleteBehavior.Restrict);
-
     }
 }

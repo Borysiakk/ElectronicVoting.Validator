@@ -16,6 +16,12 @@
       - ConnectionStrings__ValidatorDb=Host=validator-db-a;Port=5432;Database=validator-db-a;Username=user;Password=pass
       - Validator__PrivateKeyForVoteSigning=-----BEGIN PRIVATE KEY-----\nMIIEuwIBADANBgkqhkiG9w0BAQEFAASCBKUwggShAgEAAoIBAQDPDjTlD0x3cJdi\napxuAPyRGDdYPyp1XfD9cOs5+IsZl1Lt0dzRTSd/qeVz7qtceUTIBdxgjnzIRiwo\n5FHZj7gv6ItwKMYdXa6MVLELhH3EqMIp60gpkqg16bhHVfbdVuXC4xUsoIuKiyHy\nSlLYXt+Sp1vZ1MRvN5rYcFAGzaeD4dA7p2iSgYnISBglfSm1l4YkL5x48fuOLOA2\nVFIvHrQqGuIcKPTSAsXZ4AcI6MecQf3+qxPP4HWieps3dUdCyKvff2jqd3xjvFUc\nSIWSZBb3LeWs1xFJOnI3bQahVQYYYtLDhls2gcyH1S1YQor7aHrnoaJYCOJJLnQd\ncLPqupv9AgMBAAECgf9++zd1QuyiU2qD8N3+mJxMX42RkSt4zyP8SkP4SXUFPMif\nERVbRvXyVT9i2fw9uiF0iiOdE8VzDZYHff60bm+G8haRsm/NkqZ5aXcqmRaIhPaO\nvryCwm5moe9h0FaVZ7WAz8Msm0j4rlsjPHGSQJzcU8cA0HunuXI9SqPJiFYzii6z\nvYlj3RkgZ8RNSubH9jGRleJhbtECnTIdlrEx2Tc8HBXKd+wWqDP+NasI/WU2H5ly\nWxHrJomIZZYRqSQEqCucUDeprWgCYtWZRgnzza14CKKrw1I89A9N0xLzSWRekpzs\nbT/DNNJqWmgIF/aUvsxpyBe9MPxZCgbNHA1A4k0CgYEA63SOrONcMRyay3SB3IoN\nDzk1uVoWhrlURaW0RHcAtFooeqc+bJaRD+Z5NdZffy6leMW9ShvdD1fq7z2KuyeR\n6R9pXganojLu2nbR3vPS+tua0pIJajKOf93C/wyYiFR2JZ0c6alzIqQX5G5k3sCQ\nlbuvIV8cWS1bOjzIxMQAsE8CgYEA4R9F//SblQSJmc48MVSHPp0Rm248+C90zY23\nMfHvrIRo6hCMbTwhVlFNR9SFUeIqsFF16d4McJdOQTq8jKFAPJtsvkq1poXuWG3Z\nE3/X0+sgw7Aqm6w8lPzpAW0DrZzZI19qyuyEvhK9k0rikqvUA+TjAPBO0Zr4HmsI\nYLMPb/MCgYA+xKjQYCAQm56MhHemEkte9pJi4ihFLBzSIFWJNuxCKBLId9NFYXI0\nee1wM8Drh8TnCFfo7Lqmv3pK4u4b7HWSXyRYw49mxwszxB84v2lMJMUGQ5Ys8GNa\npQS5t2LmXRXN+y9c/yZJYtNXuzI6y7z/nbQXQmKtR1EdmlyvT80bMwKBgB3u1JXl\n5lH4Gnuy6ln8zUbMB61NCRpO5Q73yuX/L0kXCgQlUyarGhuqD8Z/QYLTua1cB3uj\nJLBLzgHqV2uzfSER4XGj6WdM45YqdPScyQvKdb7PS7sLObrtreWcoyKQemazpzV4\nIWZMg5x0FpA9/KDP7EcRrMk9+8O/o4uIA4N1AoGBANgdYd+cR9N/biwpFuhSDeRk\nCtdB4uZecgocNudPYzEZtfmnVN1xZ6sqKa4JUTJ1xEfoB+vFVUOHxSlRVeXl1y0r\nThCRmV9wFJ4ysL4J2Ru9cT8mSrsdZv0xmioXKZQ+6UY9a7zyip+ON8uojCjgyLzT\nkcaq+DZtOVMU+BKBw2eR\n-----END PRIVATE KEY-----\n
       - Validator__Name=electronicvoting.validator_a
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8080/health" ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
     depends_on:
       validator-db-a:
         condition: service_healthy
@@ -37,7 +43,7 @@
     ports:
       - "5433:5432"
     healthcheck:
-      test: [ "CMD-SHELL", "pg_isready -U user -d election" ]
+      test: [ "CMD-SHELL", "pg_isready -U user -d validator-db-a" ]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -101,6 +107,8 @@
       - Validator__PrivateKeyForVoteSigning=-----BEGIN PRIVATE KEY-----\nMIIEuwIBADANBgkqhkiG9w0BAQEFAASCBKUwggShAgEAAoIBAQDPDjTlD0x3cJdi\napxuAPyRGDdYPyp1XfD9cOs5+IsZl1Lt0dzRTSd/qeVz7qtceUTIBdxgjnzIRiwo\n5FHZj7gv6ItwKMYdXa6MVLELhH3EqMIp60gpkqg16bhHVfbdVuXC4xUsoIuKiyHy\nSlLYXt+Sp1vZ1MRvN5rYcFAGzaeD4dA7p2iSgYnISBglfSm1l4YkL5x48fuOLOA2\nVFIvHrQqGuIcKPTSAsXZ4AcI6MecQf3+qxPP4HWieps3dUdCyKvff2jqd3xjvFUc\nSIWSZBb3LeWs1xFJOnI3bQahVQYYYtLDhls2gcyH1S1YQor7aHrnoaJYCOJJLnQd\ncLPqupv9AgMBAAECgf9++zd1QuyiU2qD8N3+mJxMX42RkSt4zyP8SkP4SXUFPMif\nERVbRvXyVT9i2fw9uiF0iiOdE8VzDZYHff60bm+G8haRsm/NkqZ5aXcqmRaIhPaO\nvryCwm5moe9h0FaVZ7WAz8Msm0j4rlsjPHGSQJzcU8cA0HunuXI9SqPJiFYzii6z\nvYlj3RkgZ8RNSubH9jGRleJhbtECnTIdlrEx2Tc8HBXKd+wWqDP+NasI/WU2H5ly\nWxHrJomIZZYRqSQEqCucUDeprWgCYtWZRgnzza14CKKrw1I89A9N0xLzSWRekpzs\nbT/DNNJqWmgIF/aUvsxpyBe9MPxZCgbNHA1A4k0CgYEA63SOrONcMRyay3SB3IoN\nDzk1uVoWhrlURaW0RHcAtFooeqc+bJaRD+Z5NdZffy6leMW9ShvdD1fq7z2KuyeR\n6R9pXganojLu2nbR3vPS+tua0pIJajKOf93C/wyYiFR2JZ0c6alzIqQX5G5k3sCQ\nlbuvIV8cWS1bOjzIxMQAsE8CgYEA4R9F//SblQSJmc48MVSHPp0Rm248+C90zY23\nMfHvrIRo6hCMbTwhVlFNR9SFUeIqsFF16d4McJdOQTq8jKFAPJtsvkq1poXuWG3Z\nE3/X0+sgw7Aqm6w8lPzpAW0DrZzZI19qyuyEvhK9k0rikqvUA+TjAPBO0Zr4HmsI\nYLMPb/MCgYA+xKjQYCAQm56MhHemEkte9pJi4ihFLBzSIFWJNuxCKBLId9NFYXI0\nee1wM8Drh8TnCFfo7Lqmv3pK4u4b7HWSXyRYw49mxwszxB84v2lMJMUGQ5Ys8GNa\npQS5t2LmXRXN+y9c/yZJYtNXuzI6y7z/nbQXQmKtR1EdmlyvT80bMwKBgB3u1JXl\n5lH4Gnuy6ln8zUbMB61NCRpO5Q73yuX/L0kXCgQlUyarGhuqD8Z/QYLTua1cB3uj\nJLBLzgHqV2uzfSER4XGj6WdM45YqdPScyQvKdb7PS7sLObrtreWcoyKQemazpzV4\nIWZMg5x0FpA9/KDP7EcRrMk9+8O/o4uIA4N1AoGBANgdYd+cR9N/biwpFuhSDeRk\nCtdB4uZecgocNudPYzEZtfmnVN1xZ6sqKa4JUTJ1xEfoB+vFVUOHxSlRVeXl1y0r\nThCRmV9wFJ4ysL4J2Ru9cT8mSrsdZv0xmioXKZQ+6UY9a7zyip+ON8uojCjgyLzT\nkcaq+DZtOVMU+BKBw2eR\n-----END PRIVATE KEY-----\n
       - Validator__Name=electronicvoting.validator_b
     depends_on:
+      electronicvoting.validator_a:
+        condition: service_healthy
       validator-db-b:
         condition: service_healthy
       election-db:
@@ -113,12 +121,14 @@
   validator-db-b:
     image: postgres:16
     container_name: validator-db-b
+    ports:
+      - "5431:5432"
     environment:
       - POSTGRES_USER=user
       - POSTGRES_PASSWORD=pass
       - POSTGRES_DB=validator-db-b 
     healthcheck:
-      test: [ "CMD-SHELL", "pg_isready -U user -d election" ]
+      test: [ "CMD-SHELL", "pg_isready -U user -d validator-db-b" ]
       interval: 10s
       timeout: 5s
       retries: 5

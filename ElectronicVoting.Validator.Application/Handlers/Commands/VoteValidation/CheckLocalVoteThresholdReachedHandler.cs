@@ -17,29 +17,18 @@ public record CheckLocalVoteThresholdReachedCommand: ITransaction
     public Guid LocalVoteValidationProcessId { get; set; }
 }
 
-public class CheckLocalVoteThresholdReachedHandler
+public class CheckLocalVoteThresholdReachedHandler(
+    IValidatorNodeRepository validatorNodeRepository,
+    IVoteValidationResultRepository voteValidationResultRepository,
+    ILocalVoteValidationProcessRepository localVoteValidationProcessRepository,
+    IValidationVoteApiService validationVoteApiService,
+    IElectionValidatorService electionValidatorService,
+    ISignatureService signatureService)
 {
-    private readonly ISignatureService _signatureService;
-    private readonly IValidationVoteApiService _validationVoteApiService;
-    private readonly IElectionValidatorService _electionValidatorService;
-    private readonly IValidatorNodeRepository _validatorNodeRepository;
-    private readonly IVoteValidationResultRepository _voteValidationResultRepository;
-    private readonly ILocalVoteValidationProcessRepository _localVoteValidationProcessRepository;
-
-    public CheckLocalVoteThresholdReachedHandler(IValidatorNodeRepository validatorNodeRepository, IVoteValidationResultRepository voteValidationResultRepository, ILocalVoteValidationProcessRepository localVoteValidationProcessRepository, IValidationVoteApiService validationVoteApiService, IElectionValidatorService electionValidatorService, ISignatureService signatureService)
-    {
-        _validatorNodeRepository = validatorNodeRepository;
-        _voteValidationResultRepository = voteValidationResultRepository;
-        _localVoteValidationProcessRepository = localVoteValidationProcessRepository;
-        _validationVoteApiService = validationVoteApiService;
-        _electionValidatorService = electionValidatorService;
-        _signatureService = signatureService;
-    }
-    
     public async Task HandleAsync(CheckLocalVoteThresholdReachedCommand command, CancellationToken ct)
     {
-        var countValidator = await _validatorNodeRepository.CountAsync(ct);
-        var countVoteValidationResult = await _voteValidationResultRepository.CountResultsForLocalValidationProcessAsync(command.LocalVoteValidationProcessId, ct);
+        var countValidator = await validatorNodeRepository.CountAsync(ct);
+        var countVoteValidationResult = await voteValidationResultRepository.CountResultsForLocalValidationProcessAsync(command.LocalVoteValidationProcessId, ct);
         if (countVoteValidationResult >= countValidator / 2)
         {
             await ChangeStatusLocalVoteValidationProcess(command.LocalVoteValidationProcessId, ct);
@@ -49,15 +38,15 @@ public class CheckLocalVoteThresholdReachedHandler
 
     private async Task ChangeStatusLocalVoteValidationProcess(Guid localVoteValidationProcessId, CancellationToken cancellationToken = default)
     {
-        var localVoteValidationProcess = await _localVoteValidationProcessRepository.GetByIdAsync(localVoteValidationProcessId, cancellationToken);
+        var localVoteValidationProcess = await localVoteValidationProcessRepository.GetByIdAsync(localVoteValidationProcessId, cancellationToken);
         localVoteValidationProcess.Status = LocalVoteValidationStatus.Completed;
         
-        await _localVoteValidationProcessRepository.UpdateAsync(localVoteValidationProcess, cancellationToken);
+        await localVoteValidationProcessRepository.UpdateAsync(localVoteValidationProcess, cancellationToken);
     }
 
     private async Task NotifyLeaderOfVoteConsensusAsync(CheckLocalVoteThresholdReachedCommand command, CancellationToken cancellationToken = default)
     {
-        var currentValidatorId= await _electionValidatorService.GetCurrentValidatorIdAsync(cancellationToken);
+        var currentValidatorId= await electionValidatorService.GetCurrentValidatorIdAsync(cancellationToken);
         
         LeaderReceiveVoteConsensusReportCommand consensusReportCommand = new()
         {
@@ -66,8 +55,8 @@ public class CheckLocalVoteThresholdReachedHandler
             VoteValidationProcessId = command.VoteValidationProcessId,
         };
         
-        consensusReportCommand.Signature = _signatureService.Sign(consensusReportCommand);
-        await _validationVoteApiService.BroadcastLeaderReceiveVoteConsensusReportAsync(consensusReportCommand, cancellationToken);
+        consensusReportCommand.Signature = signatureService.Sign(consensusReportCommand);
+        await validationVoteApiService.BroadcastLeaderReceiveVoteConsensusReportAsync(consensusReportCommand, cancellationToken);
     }
 
 }

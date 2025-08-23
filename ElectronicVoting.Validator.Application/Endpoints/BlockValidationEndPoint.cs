@@ -12,4 +12,17 @@ public class BlockValidationEndPoint
         Console.WriteLine("StartLocalBlockValidationEndPoint");
         await bus.SendAsync(command);
     }
+
+    [WolverinePost("api/block-validation/local/receive")]
+    public static async Task ReceiveLocalBlockValidationEndPoint(ReceiveLocalBlockValidationCommand command, IMessageBus bus)
+    {
+        Console.WriteLine("ReceiveLocalBlockValidationEndPoint");
+        await bus.SendAsync(command);
+    }
+    
+    public static async Task LeaderReceiveBlockConsensusReportEndPoint(LeaderReceiveBlockConsensusReportCommand command, IMessageBus bus)
+    {
+        Console.WriteLine("LeaderReceiveBlockConsensusReportEndPoint");
+        await bus.SendAsync(command);
+    }
 }

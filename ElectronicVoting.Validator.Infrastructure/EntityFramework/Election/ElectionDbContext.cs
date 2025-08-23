@@ -9,7 +9,6 @@ namespace ElectronicVoting.Validator.Infrastructure.EntityFramework.Election;
 
 public class ElectionDbContext(DbContextOptions<ElectionDbContext> options) : DbContext(options)
 {
-    
     public DbSet<ValidatorNode> ValidatorNodes { get; set; }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

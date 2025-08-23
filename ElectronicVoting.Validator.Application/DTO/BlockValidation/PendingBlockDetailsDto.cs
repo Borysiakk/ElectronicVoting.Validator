@@ -10,6 +10,8 @@ public class PendingBlockDetailsDto :IHashable
     public string Hash { get; set; }
     public string PreviousHash { get; set; }
     
+    public DateTime StartedAt { get; set; } 
+    public DateTime FinishedAt { get; set; }
     public Guid ValidatorNodeId { get; set; } 
     public PbftSequenceDto PbftSequence { get; set; }
     public List<PendingTransactionDetailsDto> PendingTransactions { get; set; }

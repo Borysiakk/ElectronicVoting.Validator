@@ -6,7 +6,7 @@ using ElectronicVoting.Validator.Domain.Interface.Services;
 
 namespace ElectronicVoting.Validator.Infrastructure.Helpers;
 
-public class BlockHashCalculator
+public class BlockHash  
 {
     public static string ComputeBlockHash(IHashable hashable)
     {
@@ -14,5 +14,10 @@ public class BlockHashCalculator
         using var sha256 = SHA256.Create();
         var hashBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(serialized));
         return Convert.ToHexString(hashBytes);
+    }
+
+    public static bool HasValidHash(string originalHash, string reconstructedHash)
+    {
+        return string.Equals(originalHash, reconstructedHash, StringComparison.Ordinal);
     }
 }
