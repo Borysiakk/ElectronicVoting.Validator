@@ -16,7 +16,6 @@ WORKDIR "/src/ElectronicVoting.Validator"
 RUN dotnet build "./ElectronicVoting.Validator.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish
-ARG BUILD_CONFIGURATION=Release
 RUN dotnet publish "./ElectronicVoting.Validator.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
